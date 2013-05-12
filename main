@@ -6,9 +6,10 @@ import javax.swing.*;
 //import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.lang.Thread;
-//import java.awt.image.BufferStrategy;
+import java.awt.image.BufferStrategy;
 
-class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable {
+class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
+{
     //static Console c;           // The output console
     //static MouseListener t;
 
@@ -18,22 +19,22 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
     static int maxy = 600;
     static int cursorX = 0;
     static int cursorY = 0;
-    static int grid[][] = new int[15][20];
+    static int grid[] [] = new int [15] [20];
     //gridBG has one array length at 20 instead of 15 because of previous
     //null pointer exception error at 15
-    static int gridBG[][] = new int[20][20];
+    static int gridBG[] [] = new int [20] [20];
     /*
      Grid background values
      0=path
      1=wall
      2=laser tower
      */
-    static int enemyType[] = new int[30];
-    static int HP[] = new int[30];
-    static int enemyX[] = new int[30];
-    static int enemyY[] = new int[30];
-    static int enemyM[] = new int[30];
-    static int spawnPoint[] = {- 5, -5, -5, -5, -5};
+    static int enemyType[] = new int [30];
+    static int HP[] = new int [30];
+    static int enemyX[] = new int [30];
+    static int enemyY[] = new int [30];
+    static int enemyM[] = new int [30];
+    static int spawnPoint[] = { - 5, -5, -5, -5, -5};
     static boolean spawnEnemies = true;
     static int whichSquareX;
     static int whichSquareY;
@@ -45,17 +46,17 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
     static int centerYBottom = 27;
     static int centerXLeft = 5;
     static int centerXRight = 10;
-    static final Color darkYellow = new Color(128, 128, 0);
-    static final Color red1 = new Color(255, 0, 0);
-    static final Color red2 = new Color(200, 0, 0);
-    static final Color red3 = new Color(150, 0, 0);
-    static final Color red4 = new Color(100, 0, 0);
-    static final Color red5 = new Color(50, 0, 0);
+    static final Color darkYellow = new Color (128, 128, 0);
+    static final Color red1 = new Color (255, 0, 0);
+    static final Color red2 = new Color (200, 0, 0);
+    static final Color red3 = new Color (150, 0, 0);
+    static final Color red4 = new Color (100, 0, 0);
+    static final Color red5 = new Color (50, 0, 0);
     static int size = 5;
     static short fire = 0;
     static int paths;
     static boolean startThread = true;
-    static int speed = 3;
+    static int speed = 1;
     static double totalHP = 50;
     static double totalDeployment = 50;
     static double totalEnergy = 50;
@@ -72,28 +73,35 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
      */
     // execute application
 
-    public void run() {
+    public void run ()
+    {
         int enemySquareX;
         int enemySquareY;
         //Animate stuff
-        for (int i = 0; i < enemyM.length; i++) {
-            enemyM[i] = -1;
+        for (int i = 0 ; i < enemyM.length ; i++)
+        {
+            enemyM [i] = -1;
         }
 
-        while (true) {
-            if (!pause) {
+        while (true)
+        {
+            if (!pause)
+            {
                 //if (Math.random () > 0.9)
                 //{
                 //DelayClass.delay(50)
                 //Delay
-                try 
+                try
                 {
-                    Thread.sleep(50);
-                } 
-                catch (Exception e) {
-                };
+                    Thread.sleep (10);
+                }
+                catch (Exception e)
+                {
+                }
 
-                for (int i = 0; i < enemyX.length; i++) {
+
+                for (int i = 0 ; i < enemyX.length ; i++)
+                {
                     //System.out.println (enemyX [i] + ", " +enemyY [i]);
                     //if (enemyX [i] != 0)
                     //{
@@ -110,36 +118,48 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
                     // else if (((int) ((double) (enemyX [i]) / ((double) (maxx - maxx / 4) / grid [0].length)) / 1) > 0.4)
                     //     enemySquareX = ((enemyX [i]) / ((int) (maxx - maxx / 4) / grid [0].length)) - 1;
                     // else
-                    enemySquareX = ((int) (enemyX[i]) / ((maxx - maxx / 4) / grid[0].length));
-                    enemySquareY = ((enemyY[i] - 10) / ((int) (maxy / grid.length)));
+                    enemySquareX = ((int) (enemyX [i]) / ((maxx - maxx / 4) / grid [0].length));
+                    enemySquareY = ((enemyY [i] - 10) / ((int) (maxy / grid.length)));
                     //System.out.println (enemySquareY);
 
-                    if (enemySquareX >= 0 && enemySquareY >= 0 && enemySquareX <= 18 && enemySquareY <= 14) {
+                    if (enemySquareX > 0 && enemySquareY > 0 && enemySquareX <= 18 && enemySquareY <= 14)
+                    {
 
-                        if (gridBG[enemySquareY + 1][enemySquareX] == 1) {
-                            enemyY[i] += speed;
-                            if (enemyM[i] == 1) {
-                                enemyX[i] += 3 * speed;
+                        if (gridBG [enemySquareY + 1] [enemySquareX] == 1)
+                        {
+                            enemyY [i] += speed;
+                            if (enemyM [i] == 1)
+                            {
+                                enemyX [i] += 3 * speed;
                             } //     goRight (i);
-                            else if (enemyM[i] == 0) {
-                                enemyX[i] -= 5 * speed;
+                            else if (enemyM [i] == 0)
+                            {
+                                enemyX [i] -= 5 * speed;
                             }
                             //     goRight (i);
-                            enemyM[i] = 2;
+                            enemyM [i] = 2;
 
-                        } else if (gridBG[enemySquareY][enemySquareX - 1] == 1 && enemyM[i] != 1) {
-                            enemyX[i] -= speed;
-                            enemyM[i] = 0;
-                        } else if (gridBG[enemySquareY][enemySquareX + 1] == 1 && enemyM[i] != 0) {
-                            enemyX[i] += speed;
-                            enemyM[i] = 1;
+                        }
+                        else if (gridBG [enemySquareY] [enemySquareX - 1] == 1 && enemyM [i] != 1)
+                        {
+                            enemyX [i] -= speed;
+                            enemyM [i] = 0;
+                        }
+                        else if (gridBG [enemySquareY] [enemySquareX + 1] == 1 && enemyM [i] != 0)
+                        {
+                            enemyX [i] += speed;
+                            enemyM [i] = 1;
                         }
                         //System.out.println (enemyM [i]);
-                    } else if (enemySquareX >= 0 && enemySquareX <= 18 && enemySquareY <= 14) {
-                        enemyY[i] += speed;
-                    } else {
-                        enemyY[i] += speed;
-                        enemyX[i] += speed;
+                    }
+                    else if (enemySquareX >= 0 && enemySquareX <= 18 && enemySquareY <= 14)
+                    {
+                        enemyY [i] += speed;
+                    }
+                    else
+                    {
+                        enemyY [i] += speed;
+                        enemyX [i] += speed;
                     }
 
                     //System.out.println (enemySquareX + ", " + enemySquareY);
@@ -147,19 +167,25 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
                 }
                 //System.out.println (enemyX [10] + ", " + enemyY [10]);
                 //c.setVisible (false);
-                repaint();
+                repaint ();
                 //c.setVisible (true);
                 //}
-            } else {
-                repaint();
-                try {
-                    Thread.sleep(500);
-                } catch (Exception e) {
+            }
+            else
+            {
+                repaint ();
+                try
+                {
+                    Thread.sleep (50);
+                }
+                catch (Exception e)
+                {
                 }
                 //DelayClass.delay (500);
             }
         }
     }
+
 
     //public void goLeft (int i)
     //{
@@ -197,67 +223,86 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
     //         }
     //     }
     // }
-    public static void pathDrawing(int numOfPaths) {
+    public static void pathDrawing (int numOfPaths)
+    {
         //Test is used to generate random numbers, squareFirst/Second is for remembering the last square chosen
         double test;
         int squareFirst;
         int squareSecond;
 
-        for (int i = 0; i < gridBG.length; i++) {
-            for (int t = 0; t < gridBG[0].length; t++) {
-                gridBG[i][t] = 0;
+        for (int i = 0 ; i < gridBG.length ; i++)
+        {
+            for (int t = 0 ; t < gridBG [0].length ; t++)
+            {
+                gridBG [i] [t] = 0;
             }
         }
-        if (numOfPaths > 0) {
+        if (numOfPaths > 0)
+        {
             paths = numOfPaths;
         }
-        while (numOfPaths >= 1) {
-            test = Math.random();
-            if (test > 0) {
+        while (numOfPaths >= 1)
+        {
+            test = Math.random ();
+            if (test > 0)
+            {
                 squareFirst = 0;
                 squareSecond = 0;
 
-                squareSecond = (int) (Math.random() * 18) + 1;
-                while (squareSecond == spawnPoint[0] || squareSecond == spawnPoint[0] - 1 || squareSecond == spawnPoint[0] + 1
-                        || squareSecond == spawnPoint[1] || squareSecond == spawnPoint[1] - 1 || squareSecond == spawnPoint[1] + 1
-                        || squareSecond == spawnPoint[2] || squareSecond == spawnPoint[2] - 1 || squareSecond == spawnPoint[2] + 1
-                        || squareSecond == spawnPoint[3] || squareSecond == spawnPoint[3] - 1 || squareSecond == spawnPoint[3] + 1
-                        || squareSecond == spawnPoint[4] || squareSecond == spawnPoint[4] - 1 || squareSecond == spawnPoint[4] + 1) {
-                    squareSecond = (int) (Math.random() * 18) + 1;
+                squareSecond = (int) (Math.random () * 18) + 1;
+                while (squareSecond == spawnPoint [0] || squareSecond == spawnPoint [0] - 1 || squareSecond == spawnPoint [0] + 1
+                        || squareSecond == spawnPoint [1] || squareSecond == spawnPoint [1] - 1 || squareSecond == spawnPoint [1] + 1
+                        || squareSecond == spawnPoint [2] || squareSecond == spawnPoint [2] - 1 || squareSecond == spawnPoint [2] + 1
+                        || squareSecond == spawnPoint [3] || squareSecond == spawnPoint [3] - 1 || squareSecond == spawnPoint [3] + 1
+                        || squareSecond == spawnPoint [4] || squareSecond == spawnPoint [4] - 1 || squareSecond == spawnPoint [4] + 1)
+                {
+                    squareSecond = (int) (Math.random () * 18) + 1;
                 }
-                spawnPoint[numOfPaths - 1] = squareSecond;
-                gridBG[squareFirst][squareSecond] = 1;
+                spawnPoint [numOfPaths - 1] = squareSecond;
+                gridBG [squareFirst] [squareSecond] = 1;
                 //System.out.println (spawnPoint [numOfPaths - 1]);
 
 
-                while (squareFirst < 19) {
-                    if (squareFirst == 0) {
+                while (squareFirst < 19)
+                {
+                    if (squareFirst == 0)
+                    {
                         squareFirst++;
-                    } else if (squareFirst > 0 && squareFirst < 18) {
-                        test = Math.random();
-                        if (test > 0.7 && squareSecond > 1 && gridBG[squareFirst - 1][squareSecond - 1] != 1
-                                && gridBG[squareFirst - 1][squareSecond + 1] != 1 && gridBG[squareFirst][squareSecond - 1] != 1) // && gridBG [squareFirst] [squareSecond - 2] != 1)
+                    }
+                    else if (squareFirst > 0 && squareFirst < 18)
+                    {
+                        test = Math.random ();
+                        if (test > 0.7 && squareSecond > 1 && gridBG [squareFirst - 1] [squareSecond - 1] != 1
+                                && gridBG [squareFirst - 1] [squareSecond + 1] != 1 && gridBG [squareFirst] [squareSecond - 1] != 1) // && gridBG [squareFirst] [squareSecond - 2] != 1)
                         {
                             squareSecond--;
-                        } else if (test > 0.4 && squareSecond < 18 && squareSecond > 1 && gridBG[squareFirst - 1][squareSecond + 1] != 1
-                                && gridBG[squareFirst + 1][squareSecond + 1] != 1 && gridBG[squareFirst][squareSecond + 1] != 1) {
+                        }
+                        else if (test > 0.4 && squareSecond < 18 && squareSecond > 1 && gridBG [squareFirst - 1] [squareSecond + 1] != 1
+                                && gridBG [squareFirst + 1] [squareSecond + 1] != 1 && gridBG [squareFirst] [squareSecond + 1] != 1)
+                        {
                             squareSecond++;
-                        } else {
+                        }
+                        else
+                        {
                             squareFirst++;
                         }
-                    } else if (squareFirst == 18) {
+                    }
+                    else if (squareFirst == 18)
+                    {
                         squareFirst++;
                     }
                     //System.out.println (squareFirst);
-                    gridBG[squareFirst][squareSecond] = 1;
+                    gridBG [squareFirst] [squareSecond] = 1;
                 }
-            } else {
-                squareFirst = (int) (Math.random() * 14) + 1;
+            }
+            else
+            {
+                squareFirst = (int) (Math.random () * 14) + 1;
                 squareSecond = 0;
-                gridBG[squareFirst][squareSecond] = 1;
+                gridBG [squareFirst] [squareSecond] = 1;
                 //while (squareSecond != 20)
                 //{
-                gridBG[squareFirst][squareSecond] = 1;
+                gridBG [squareFirst] [squareSecond] = 1;
                 //}
             }
             numOfPaths--;
@@ -265,32 +310,69 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
         }
     }
 
-    public void frameRate() {
+
+    public void frameRate ()
+    {
     }
 
-    public static void main(String args[]) {
-        if (debugMode) {
+
+    public static void main (String args[])
+    {
+        if (debugMode)
+        {
             debugValue = 50;
         }
-        //TD1 application = new TD1 ();
+        TD1 application = new TD1 ();
         startThread = false;
-        TD1 p = new TD1();
-        new Thread(p).start();
+        TD1 p = new TD1 ();
+        new Thread (p).start ();
 
 
 
-        //application.setDefaultCloseOperation (
-        //        JFrame.EXIT_ON_CLOSE);
+        p.setDefaultCloseOperation (
+                JFrame.EXIT_ON_CLOSE);
+        application.setDefaultCloseOperation (
+                JFrame.EXIT_ON_CLOSE);
+        p.setSize (maxx, maxy);
+        p.setVisible (true);
+        //p.setUndecorated (true);
+        application.setSize (maxx, maxy);
+        application.setVisible (false);
+        p.createBufferStrategy (2);
     }
 
-    public void animate2() {
+
+    public void animate2 ()
+    {
     }
 
-    public void animate() {
+
+    public void animate ()
+    {
     }
 
-    public void paint(Graphics g) {
-        if (!pause) {
+
+    public void paint (Graphics g)
+    {
+
+        BufferStrategy br = this.getBufferStrategy ();
+        //g = null;
+        //try
+        //{
+        if (br!=null)
+        {
+        //g.dispose();
+            g = br.getDrawGraphics ();
+        //}
+        }
+        //finally
+        //{
+           //g.dispose ();
+        //}
+
+
+        if (!pause)
+        {
             //Graphics g = strategy.getDrawGraphics ();
 
             //if (debugMode)
@@ -300,72 +382,88 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
             //}
 
             //Placeholder for death screen
-            if (totalHP <= 0 && !lost) {
+            if (totalHP <= 0 && !lost)
+            {
                 lost = true;
-                System.out.println("Game over!");
+                System.out.println ("Game over!");
             }
 
             //Refresh tiles
-            g.setColor(Color.white);
-            if (first) {
-                if (drewPaths == false) {
+            g.setColor (Color.white);
+            if (first)
+            {
+                if (drewPaths == false)
+                {
                     //pathDrawing's arguments are the number of paths.
                     //Enemies will only spawn on the first 5 paths
-                    pathDrawing(1);
+                    pathDrawing (1);
                     drewPaths = true;
                 }
-                g.fillRect(centerXLeft, centerYTop, maxx + debugValue - centerXRight, maxy + debugValue - centerYBottom);
-                for (int i = 0; i < gridBG.length; i++) {
-                    for (int t = 0; t < gridBG[0].length; t++) {
-                        if (gridBG[i][t] == 0) {
-                            g.setColor(Color.gray);
-                            g.fillRect(1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                g.fillRect (centerXLeft, centerYTop, maxx + debugValue - centerXRight, maxy + debugValue - centerYBottom);
+                for (int i = 0 ; i < gridBG.length ; i++)
+                {
+                    for (int t = 0 ; t < gridBG [0].length ; t++)
+                    {
+                        if (gridBG [i] [t] == 0)
+                        {
+                            g.setColor (Color.gray);
+                            g.fillRect (1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                                     i * (maxy + debugValue) / grid.length - 8,
-                                    ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                                    ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                                     (maxy + debugValue) / grid.length - 1);
-                        } else if (gridBG[i][t] == 2) {
-                            g.setColor(Color.gray);
-                            g.fillRect(1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                        }
+                        else if (gridBG [i] [t] == 2)
+                        {
+                            g.setColor (Color.gray);
+                            g.fillRect (1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                                     i * (maxy + debugValue) / grid.length - 8,
-                                    ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                                    ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                                     (maxy + debugValue) / grid.length - 1);
-                            g.setColor(Color.black);
-                            g.fillOval((int) (1 + (t + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+                            g.setColor (Color.black);
+                            g.fillOval ((int) (1 + (t + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                                     (int) ((i + 0.25) * (maxy + debugValue) / grid.length - 8),
                                     (maxy + debugValue) / (grid.length * 2),
                                     (maxy + debugValue) / (grid.length * 2));
                         }
                     }
                 }
-                if (debugMode) {
-                    g.drawString("Debug mode active", 50, 0);
+                if (debugMode)
+                {
+                    g.drawString ("Debug mode active", 50, 0);
                 }
                 //first = false;
             }
 
             //Redraw tiles
-            for (int i = 0; i < gridBG.length; i++) {
-                for (int t = 0; t < gridBG[0].length; t++) {
-                    if (gridBG[i][t] == 1) {
-                        g.setColor(Color.white);
-                        g.fillRect(1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+            for (int i = 0 ; i < gridBG.length ; i++)
+            {
+                for (int t = 0 ; t < gridBG [0].length ; t++)
+                {
+                    if (gridBG [i] [t] == 1)
+                    {
+                        g.setColor (Color.white);
+                        g.fillRect (1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                                 i * (maxy + debugValue) / grid.length - 8,
-                                ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                                ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                                 (maxy + debugValue) / grid.length - 1);
-                    } else if (gridBG[i][t] == 0) {
-                        g.setColor(Color.gray);
-                        g.fillRect(1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                    }
+                    else if (gridBG [i] [t] == 0)
+                    {
+                        g.setColor (Color.gray);
+                        g.fillRect (1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                                 i * (maxy + debugValue) / grid.length - 8,
-                                ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                                ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                                 (maxy + debugValue) / grid.length - 1);
-                    } else if (gridBG[i][t] == 2) {
-                        g.setColor(Color.gray);
-                        g.fillRect(1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                    }
+                    else if (gridBG [i] [t] == 2)
+                    {
+                        g.setColor (Color.gray);
+                        g.fillRect (1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                                 i * (maxy + debugValue) / grid.length - 8,
-                                ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                                ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                                 (maxy + debugValue) / grid.length - 1);
-                        g.setColor(Color.black);
-                        g.fillOval((int) (1 + (t + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+                        g.setColor (Color.black);
+                        g.fillOval ((int) (1 + (t + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                                 (int) ((i + 0.25) * (maxy + debugValue) / grid.length - 8),
                                 (maxy + debugValue) / (grid.length * 2),
                                 (maxy + debugValue) / (grid.length * 2));
@@ -389,27 +487,33 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
             }
 
             //Cover over the last tile selected
-            if (whichSquareX >= 0 && whichSquareY >= 0 && whichSquareX <= 19 && whichSquareY <= 19) {
-                if (gridBG[whichSquareY][whichSquareX] == 1) {
-                    g.setColor(Color.white);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+            if (whichSquareX >= 0 && whichSquareY >= 0 && whichSquareX <= 19 && whichSquareY <= 19)
+            {
+                if (gridBG [whichSquareY] [whichSquareX] == 1)
+                {
+                    g.setColor (Color.white);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                } else if (gridBG[whichSquareY][whichSquareX] == 0) {
-                    g.setColor(Color.gray);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                }
+                else if (gridBG [whichSquareY] [whichSquareX] == 0)
+                {
+                    g.setColor (Color.gray);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                } else if (gridBG[whichSquareY][whichSquareX] == 2) {
-                    g.setColor(Color.gray);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                }
+                else if (gridBG [whichSquareY] [whichSquareX] == 2)
+                {
+                    g.setColor (Color.gray);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                    g.setColor(Color.black);
-                    g.fillOval((int) (1 + (whichSquareX + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+                    g.setColor (Color.black);
+                    g.fillOval ((int) (1 + (whichSquareX + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                             (int) ((whichSquareY + 0.25) * (maxy + debugValue) / grid.length - 8),
                             (maxy + debugValue) / (grid.length * 2),
                             (maxy + debugValue) / (grid.length * 2));
@@ -462,17 +566,19 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
             // }
 
             //Draw lines
-            g.setColor(Color.black);
-            g.drawLine(0 + centerXLeft, 0 + centerYTop, (maxx + debugValue - (maxx + debugValue) / 4) - centerXRight, 0 - centerYBottom);
-            g.drawLine(0, 0, 0, maxy + debugValue);
-            for (int i = 0; i < grid[0].length; i++) {
-                g.drawLine((int) ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length + (i * (maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+            g.setColor (Color.black);
+            g.drawLine (0 + centerXLeft, 0 + centerYTop, (maxx + debugValue - (maxx + debugValue) / 4) - centerXRight, 0 - centerYBottom);
+            g.drawLine (0, 0, 0, maxy + debugValue);
+            for (int i = 0 ; i < grid [0].length ; i++)
+            {
+                g.drawLine ((int) ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length + (i * (maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                         0 + debugValue,
-                        (int) ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length + (i * (maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+                        (int) ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length + (i * (maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                         maxy + debugValue);
             }
-            for (int i = 0; i < grid.length; i++) {
-                g.drawLine(0,
+            for (int i = 0 ; i < grid.length ; i++)
+            {
+                g.drawLine (0,
                         (int) ((maxy + debugValue) / grid.length + (i * (maxy + debugValue) / grid.length) - 9),
                         (maxx + debugValue - (maxx + debugValue) / 4) + debugValue,
                         (int) ((maxy + debugValue) / grid.length + (i * (maxy + debugValue) / grid.length) - 9));
@@ -480,54 +586,66 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
 
             //Use the whichSquareX/Y variable to indicate to the
             //player where the cursor is with a yellow rectangle
-            whichSquareX = (cursorX / ((int) (maxx - maxx / 4) / grid[0].length));
+            whichSquareX = (cursorX / ((int) (maxx - maxx / 4) / grid [0].length));
             whichSquareY = (cursorY / ((int) (maxy / grid.length)));
 
 
-            if (whichSquareX >= 0 && whichSquareY >= 0 && whichSquareX <= 19 && whichSquareY <= 14) {
-                if (gridBG[whichSquareY][whichSquareX] == 1 && selected == 0) {
-                    g.setColor(Color.yellow);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+            if (whichSquareX >= 0 && whichSquareY >= 0 && whichSquareX <= 19 && whichSquareY <= 14)
+            {
+                if (gridBG [whichSquareY] [whichSquareX] == 1 && selected == 0)
+                {
+                    g.setColor (Color.yellow);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                } else if (gridBG[whichSquareY][whichSquareX] == 0 && selected == 0) {
-                    g.setColor(darkYellow);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                }
+                else if (gridBG [whichSquareY] [whichSquareX] == 0 && selected == 0)
+                {
+                    g.setColor (darkYellow);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                } else if (gridBG[whichSquareY][whichSquareX] == 2 && selected == 0) {
-                    g.setColor(darkYellow);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                }
+                else if (gridBG [whichSquareY] [whichSquareX] == 2 && selected == 0)
+                {
+                    g.setColor (darkYellow);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                    g.setColor(Color.black);
-                    g.fillOval((int) (1 + (whichSquareX + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+                    g.setColor (Color.black);
+                    g.fillOval ((int) (1 + (whichSquareX + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                             (int) ((whichSquareY + 0.25) * (maxy + debugValue) / grid.length - 8),
                             (maxy + debugValue) / (grid.length * 2),
                             (maxy + debugValue) / (grid.length * 2));
-                } else if (gridBG[whichSquareY][whichSquareX] == 1 && selected == 2) {
-                    g.setColor(Color.red);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                }
+                else if (gridBG [whichSquareY] [whichSquareX] == 1 && selected == 2)
+                {
+                    g.setColor (Color.red);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                } else if (gridBG[whichSquareY][whichSquareX] == 0 && selected == 2) {
-                    g.setColor(Color.green);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                }
+                else if (gridBG [whichSquareY] [whichSquareX] == 0 && selected == 2)
+                {
+                    g.setColor (Color.green);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                } else if (gridBG[whichSquareY][whichSquareX] == 2 && selected == 2) {
-                    g.setColor(Color.red);
-                    g.fillRect(1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length),
+                }
+                else if (gridBG [whichSquareY] [whichSquareX] == 2 && selected == 2)
+                {
+                    g.setColor (Color.red);
+                    g.fillRect (1 + whichSquareX * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
                             whichSquareY * (maxy + debugValue) / grid.length - 8,
-                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) - 1,
+                            ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
                             (maxy + debugValue) / grid.length - 1);
-                    g.setColor(Color.black);
-                    g.fillOval((int) (1 + (whichSquareX + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+                    g.setColor (Color.black);
+                    g.fillOval ((int) (1 + (whichSquareX + 0.168) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                             (int) ((whichSquareY + 0.25) * (maxy + debugValue) / grid.length - 8),
                             (maxy + debugValue) / (grid.length * 2),
                             (maxy + debugValue) / (grid.length * 2));
@@ -535,27 +653,32 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
             }
 
             //Spawn enemies
-            if (spawnEnemies) {
+            if (spawnEnemies)
+            {
                 int i = 0;
                 boolean z = true;
-                for (int t = 0; t < enemyX.length; t++) {
+                for (int t = 0 ; t < enemyX.length ; t++)
+                {
                     //for (int i = 0 ; i < spawnPoint.length ; i++)
                     //{
-                    while (z) {
-                        if (spawnPoint[i] != -5) {
-                            enemyX[t] = spawnPoint[i] * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)
-                                    + (((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) / 2) - 1 - size / 2;
-                            enemyY[t] = (((maxy + debugValue) / grid.length) + 1 + size) - 30 - t * ((int) (Math.random() * 50) + 20);
+                    while (z)
+                    {
+                        if (spawnPoint [i] != -5)
+                        {
+                            enemyX [t] = spawnPoint [i] * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)
+                                + (((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) / 2) - 1 - size / 2;
+                            enemyY [t] = (((maxy + debugValue) / grid.length) + 1 + size) - 30 - t * ((int) (Math.random () * 50) + 20);
                             // g.fillOval (enemyX [t],
                             //        enemyY [t],
                             //        size,
                             //        size
                             //         );
-                            HP[t] = HPReset;
+                            HP [t] = HPReset;
                             z = false;
                         }
                         i++;
-                        if (i > 4) {
+                        if (i > 4)
+                        {
                             i = 0;
                         }
                     }
@@ -566,39 +689,53 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
             }
 
             //if enemies are bellow the screen or dead reset their positions
-            for (int t = 0; t < enemyX.length; t++) {
-                if (enemyY[t] > maxy + 30 || HP[t] <= 0) {
-                    if (HP[t] <= 0) {
+            for (int t = 0 ; t < enemyX.length ; t++)
+            {
+                if (enemyY [t] > maxy + 30 || HP [t] <= 0)
+                {
+                    if (HP [t] <= 0)
+                    {
                         totalEnergy += 0.5;
                         totalDeployment += 0.5;
                     }
-                    enemyX[t] = spawnPoint[(int) (Math.random() * paths)] * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)
-                            + (((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length) / 2) - 1 - size / 2;
-                    enemyY[t] = (((maxy + debugValue) / grid.length) + 1 + size) - 30;
-                    totalHP -= HP[t] * 0.01;
-                    HP[t] = HPReset;
+                    enemyX [t] = spawnPoint [(int) (Math.random () * paths)] * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)
+                        + (((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) / 2) - 1 - size / 2;
+                    enemyY [t] = (((maxy + debugValue) / grid.length) + 1 + size) - 30;
+                    totalHP -= HP [t] * 0.01;
+                    HP [t] = HPReset;
                     //Lowers dificulty curve
-                    if (Math.random() > 0.5) {
+                    if (Math.random () > 0.5)
+                    {
                         HPReset++;
                     }
                 }
             }
 
             //Draw enemies
-            for (int t = 0; t < enemyX.length; t++) {
-                if (HP[t] >= 50) {
-                    g.setColor(red5);
-                } else if (HP[t] >= 40) {
-                    g.setColor(red4);
-                } else if (HP[t] >= 30) {
-                    g.setColor(red3);
-                } else if (HP[t] >= 20) {
-                    g.setColor(red2);
-                } else {
-                    g.setColor(red1);
+            for (int t = 0 ; t < enemyX.length ; t++)
+            {
+                if (HP [t] >= 50)
+                {
+                    g.setColor (red5);
                 }
-                g.fillOval(enemyX[t],
-                        enemyY[t],
+                else if (HP [t] >= 40)
+                {
+                    g.setColor (red4);
+                }
+                else if (HP [t] >= 30)
+                {
+                    g.setColor (red3);
+                }
+                else if (HP [t] >= 20)
+                {
+                    g.setColor (red2);
+                }
+                else
+                {
+                    g.setColor (red1);
+                }
+                g.fillOval (enemyX [t],
+                        enemyY [t],
                         size,
                         size);
             }
@@ -611,79 +748,83 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
              */
 
             //Clear the right side of the screen
-            g.setColor(Color.white);
-            g.fillRect(maxx - maxx / 4 + centerXLeft, centerYTop + (int) (maxy * 0.3), maxx + debugValue - centerXRight, (int) (maxy * 0.7) + debugValue - centerYBottom);
+            g.setColor (Color.white);
+            g.fillRect (maxx - maxx / 4 + centerXLeft, centerYTop + (int) (maxy * 0.3), maxx + debugValue - centerXRight, (int) (maxy * 0.7) + debugValue - centerYBottom);
 
             //Paint tower icons
-            g.drawRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
+            g.drawRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
 
             //Draw health bar
-            if (totalHP >= 50) {
+            if (totalHP >= 50)
+            {
                 totalHP = 50;
             }
-            g.setColor(Color.red);
-            g.drawLine((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.87), (int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.881));
-            g.drawLine((int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.87), (int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.881));
-            g.fillRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.87), (int) (maxx * 0.153 * (totalHP / 50)), (int) (maxy * 0.013));
-            g.drawString(Short.toString((short) (totalHP * 2)), (int) (maxx * 0.855), (int) (maxy * 0.865));
+            g.setColor (Color.red);
+            g.drawLine ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.87), (int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.881));
+            g.drawLine ((int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.87), (int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.881));
+            g.fillRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.87), (int) (maxx * 0.153 * (totalHP / 50)), (int) (maxy * 0.013));
+            g.drawString (Short.toString ((short) (totalHP * 2)), (int) (maxx * 0.855), (int) (maxy * 0.865));
 
             //Draw energy bar
-            if (totalEnergy > 50) {
+            if (totalEnergy > 50)
+            {
                 totalEnergy = 50;
             }
-            g.setColor(Color.blue);
-            g.drawLine((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.91), (int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.921));
-            g.drawLine((int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.91), (int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.921));
-            g.fillRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.91), (int) (maxx * 0.153 * (totalEnergy / 50)), (int) (maxy * 0.013));
-            g.drawString(Short.toString((short) (totalEnergy * 2)), (int) (maxx * 0.855), (int) (maxy * 0.905));
+            g.setColor (Color.blue);
+            g.drawLine ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.91), (int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.921));
+            g.drawLine ((int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.91), (int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.921));
+            g.fillRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.91), (int) (maxx * 0.153 * (totalEnergy / 50)), (int) (maxy * 0.013));
+            g.drawString (Short.toString ((short) (totalEnergy * 2)), (int) (maxx * 0.855), (int) (maxy * 0.905));
 
             //Draw deployment bar
-            if (totalDeployment > 50) {
+            if (totalDeployment > 50)
+            {
                 totalDeployment = 50;
             }
-            g.setColor(Color.green);
-            g.drawLine((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.95), (int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.961));
-            g.drawLine((int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.95), (int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.961));
-            g.fillRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.95), (int) (maxx * 0.153 * (totalDeployment / 50)), (int) (maxy * 0.013));
-            g.drawString(Short.toString((short) (totalDeployment * 2)), (int) (maxx * 0.855), (int) (maxy * 0.945));
+            g.setColor (Color.green);
+            g.drawLine ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.95), (int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.961));
+            g.drawLine ((int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.95), (int) ((maxx - maxx / 4 + centerXLeft) * 1.25), (int) (maxy * 0.961));
+            g.fillRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.95), (int) (maxx * 0.153 * (totalDeployment / 50)), (int) (maxy * 0.013));
+            g.drawString (Short.toString ((short) (totalDeployment * 2)), (int) (maxx * 0.855), (int) (maxy * 0.945));
 
             //Recolour towers
             //Laser tower
-            g.setColor(Color.white);
-            g.fillRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
+            g.setColor (Color.white);
+            g.fillRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
 
             //Draw tower icons
-            g.setColor(Color.black);
-            g.drawString("Towers", (int) (maxx * 0.85), (int) (maxy * 0.1));
+            g.setColor (Color.black);
+            g.drawString ("Towers", (int) (maxx * 0.85), (int) (maxy * 0.1));
 
             //Laser tower
-            g.drawRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
-            g.setColor(Color.black);
-            g.fillOval((int) (1 + ((maxx - maxx / 4 + centerXLeft) * 1.059)),
+            g.drawRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
+            g.setColor (Color.black);
+            g.fillOval ((int) (1 + ((maxx - maxx / 4 + centerXLeft) * 1.059)),
                     (int) ((maxy * 0.165)),
                     (maxy + debugValue) / (grid.length * 3),
                     (maxy + debugValue) / (grid.length * 3));
 
             //Highlight tower icons
             if (cursorX > (maxx - maxx / 4 + centerXLeft) * 1.05 && cursorX < (maxx - maxx / 4 + centerXLeft) * 1.05 + maxx * 0.03
-                    && cursorY > maxy * 0.15 && cursorY < maxy * 0.2 || selected == 2) {
+                    && cursorY > maxy * 0.15 && cursorY < maxy * 0.2 || selected == 2)
+            {
                 //Laser Tower
-                g.setColor(Color.yellow);
-                g.fillRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
-                g.setColor(Color.black);
-                g.drawRect((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
-                g.fillOval((int) (1 + ((maxx - maxx / 4 + centerXLeft) * 1.059)),
+                g.setColor (Color.yellow);
+                g.fillRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
+                g.setColor (Color.black);
+                g.drawRect ((int) ((maxx - maxx / 4 + centerXLeft) * 1.05), (int) (maxy * 0.15), (int) (maxx * 0.03), (int) (maxy * 0.05));
+                g.fillOval ((int) (1 + ((maxx - maxx / 4 + centerXLeft) * 1.059)),
                         (int) ((maxy * 0.165)),
                         (maxy + debugValue) / (grid.length * 3),
                         (maxy + debugValue) / (grid.length * 3));
-                g.setColor(Color.black);
-                g.drawString("Laser Tower", (int) (maxx * 0.83), (int) (maxy * 0.5));
-                g.drawString("The classic Laser Tower.", (int) (maxx * 0.78), (int) (maxy * 0.55));
-                g.drawString("Average firing rate. Average", (int) (maxx * 0.78), (int) (maxy * 0.58));
-                g.drawString("power. Oh, and it's cheap.", (int) (maxx * 0.78), (int) (maxy * 0.61));
-                g.drawString("Power: 20", (int) (maxx * 0.81), (int) (maxy * 0.67));
-                g.drawString("Attack Speed: 4", (int) (maxx * 0.81), (int) (maxy * 0.7));
-                g.drawString("Cost: 20", (int) (maxx * 0.81), (int) (maxy * 0.73));
+                g.setColor (Color.black);
+                g.drawString ("Laser Tower", (int) (maxx * 0.83), (int) (maxy * 0.5));
+                g.drawString ("The classic Laser Tower.", (int) (maxx * 0.78), (int) (maxy * 0.55));
+                g.drawString ("Average firing rate. Average", (int) (maxx * 0.78), (int) (maxy * 0.58));
+                g.drawString ("power. Oh, and it's cheap.", (int) (maxx * 0.78), (int) (maxy * 0.61));
+                g.drawString ("Power: 20", (int) (maxx * 0.81), (int) (maxy * 0.67));
+                g.drawString ("Attack Speed: 4", (int) (maxx * 0.81), (int) (maxy * 0.7));
+                g.drawString ("Cost: 20", (int) (maxx * 0.81), (int) (maxy * 0.73));
             }
 
             // g.fillRect (1 + t * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length),
@@ -691,7 +832,8 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
             //         ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length) - 1,
             //         (maxy + debugValue) / grid.length - 1
             //         );
-            if (first) {
+            if (first)
+            {
                 first = false;
             }
 
@@ -705,19 +847,25 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
             fire++;
 
             //Lasers
-            g.setColor(Color.red);
-            if (fire == 0 || fire == 5 || fire == 10 || fire == 15) {
-                for (int i = 0; i < gridBG.length; i++) {
-                    for (int t = 0; t < gridBG[0].length; t++) {
-                        if (gridBG[i][t] == 2) {
-                            for (int z = 0; z < enemyX.length; z++) {
-                                if (Math.pow((enemyX[z] - 1 - (t + 0.5) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)), 2)
-                                        + Math.pow(enemyY[z] - (i + 0.5) * ((maxy + debugValue) / grid.length), 2) < 10000) {
-                                    g.drawLine((int) (1 + (t + 0.5) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid[0].length)),
+            g.setColor (Color.red);
+            if (fire == 0 || fire == 5 || fire == 10 || fire == 15)
+            {
+                for (int i = 0 ; i < gridBG.length ; i++)
+                {
+                    for (int t = 0 ; t < gridBG [0].length ; t++)
+                    {
+                        if (gridBG [i] [t] == 2)
+                        {
+                            for (int z = 0 ; z < enemyX.length ; z++)
+                            {
+                                if (Math.pow ((enemyX [z] - 1 - (t + 0.5) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)), 2)
+                                        + Math.pow (enemyY [z] - (i + 0.5) * ((maxy + debugValue) / grid.length), 2) < 10000)
+                                {
+                                    g.drawLine ((int) (1 + (t + 0.5) * ((maxx + debugValue - (maxx + debugValue) / 4) / grid [0].length)),
                                             (int) ((i + 0.3) * ((maxy + debugValue) / grid.length)),
-                                            enemyX[z],
-                                            enemyY[z]);
-                                    HP[z] -= 10;
+                                            enemyX [z],
+                                            enemyY [z]);
+                                    HP [z] -= 10;
                                     z = enemyX.length;
                                 }
                             }
@@ -726,29 +874,39 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
                 }
             }
 
-            if (fire >= 20) {
+            if (fire >= 20)
+            {
                 fire = 0;
             }
-        } /*
-         ////////////
-         Pause
-         ////////////
-         */ else {
-            g.setColor(Color.blue);
-            g.fillRect(centerXLeft, centerYTop, maxx + debugValue - centerXRight, maxy + debugValue - centerYBottom);
-            g.setColor(Color.white);
-            g.drawString("Your game is paused", maxx / 2 - 65, maxy / 3);
-            if (flash) {
-                g.drawString("Move your mouse into the window to continue_", maxx / 2 - 130, maxy / 2);
+        }
+        /*
+        ////////////
+        Pause
+        ////////////
+        */else
+        {
+            g.setColor (Color.blue);
+            g.fillRect (centerXLeft, centerYTop, maxx + debugValue - centerXRight, maxy + debugValue - centerYBottom);
+            g.setColor (Color.white);
+            g.drawString ("Your game is paused", maxx / 2 - 65, maxy / 3);
+            if (flash)
+            {
+                g.drawString ("Move your mouse into the window to continue_", maxx / 2 - 130, maxy / 2);
                 flash = false;
-            } else {
-                g.drawString("Move your mouse into the window to continue", maxx / 2 - 130, maxy / 2);
+            }
+            else
+            {
+                g.drawString ("Move your mouse into the window to continue", maxx / 2 - 130, maxy / 2);
                 flash = true;
             }
         }
+        if (br!=null)
+        br.show ();
     }
 
-    public TD1() {
+
+    public TD1 ()
+    {
 
         //addMouseListener (c);
         //c = new Console (30, 120);
@@ -759,79 +917,107 @@ class TD1 extends JFrame implements MouseListener, MouseMotionListener, Runnable
 
 
         //getContentPane ().add (c);
-        if (debugMode) {
-            setSize(maxx + debugValue * 2, maxy + debugValue * 2);
-        } else {
-            setSize(maxx, maxy);
+        if (debugMode)
+        {
+            setSize (maxx + debugValue * 2, maxy + debugValue * 2);
         }
-        addMouseListener(this);
-        addMouseMotionListener(this);
-        setVisible(true);
+        else
+        {
+            setSize (maxx, maxy);
+        }
+        addMouseListener (this);
+        addMouseMotionListener (this);
+        setVisible (true);
     }
 
-    public void keyTyped(KeyEvent evt) {
+
+    public void keyTyped (KeyEvent evt)
+    {
         // System.out.println ("keytyped");
     }
 
-    public void keyPressed(KeyEvent evt) {
+
+    public void keyPressed (KeyEvent evt)
+    {
         // System.out.print ("keypressed");
     }
 
-    public void keyReleased(KeyEvent evt) {
+
+    public void keyReleased (KeyEvent evt)
+    {
         //  System.out.println ("keyreleased");
     }
 
-    public void mousePressed(MouseEvent evt) {
+
+    public void mousePressed (MouseEvent evt)
+    {
         //animate();
         //System.out.println ("mousepressed");
     }
 
-    public void mouseReleased(MouseEvent evt) {
+
+    public void mouseReleased (MouseEvent evt)
+    {
         //animate();
         //System.out.println (evt.getX ());
         //System.out.println ("mousereleased");
     }
 
-    public void mouseClicked(MouseEvent evt) {
+
+    public void mouseClicked (MouseEvent evt)
+    {
         //System.out.println ("mouseclicked");
         //System.out.println (evt.getX ());
-        for (int t = 0; t < enemyX.length; t++) {
-            if (Math.sqrt(Math.pow((enemyX[t] - evt.getX()), 2) + Math.pow((enemyY[t] - evt.getY()), 2)) <= size) {
-                HP[t] -= 30;
+        for (int t = 0 ; t < enemyX.length ; t++)
+        {
+            if (Math.sqrt (Math.pow ((enemyX [t] - evt.getX ()), 2) + Math.pow ((enemyY [t] - evt.getY ()), 2)) <= size)
+            {
+                HP [t] -= 30;
             }
         }
         if (totalDeployment >= 10 && cursorX > (maxx - maxx / 4 + centerXLeft) * 1.05 && cursorX < (maxx - maxx / 4 + centerXLeft) * 1.05 + maxx * 0.03
-                && cursorY > maxy * 0.15 && cursorY < maxy * 0.2 && selected == 0) {
+                && cursorY > maxy * 0.15 && cursorY < maxy * 0.2 && selected == 0)
+        {
             selected = 2;
-        } else if (whichSquareY < 20 && whichSquareX < 20 && gridBG[whichSquareY][whichSquareX] == 0 && selected == 2) {
-            gridBG[whichSquareY][whichSquareX] = 2;
+        }
+        else if (whichSquareY < 20 && whichSquareX < 20 && gridBG [whichSquareY] [whichSquareX] == 0 && selected == 2)
+        {
+            gridBG [whichSquareY] [whichSquareX] = 2;
             totalDeployment -= 10;
             selected = 0;
         }
     }
 
-    public void mouseEntered(MouseEvent evt) {
+
+    public void mouseEntered (MouseEvent evt)
+    {
         first = true;
         pause = false;
         //repaint ();
         // System.out.println ("mousenentered");
     }
 
-    public void mouseMoved(MouseEvent evt) {
+
+    public void mouseMoved (MouseEvent evt)
+    {
         //System.out.println (evt.getX ());
-        cursorX = evt.getX();
-        cursorY = evt.getY();
+        cursorX = evt.getX ();
+        cursorY = evt.getY ();
         //System.out.println ("test");
         //DelayClass.delay(50);
         //update ();
         //repaint ();
     }
 
-    public void mouseDragged(MouseEvent evt) {
+
+    public void mouseDragged (MouseEvent evt)
+    {
         // System.out.println (evt.getX ());
     }
 
-    public void mouseExited(MouseEvent evt) {
+
+    public void mouseExited (MouseEvent evt)
+    {
         pause = true;
         //  System.out.println ("mouseexited");
     }
