@@ -1,7 +1,7 @@
 TD01
 ====
 Known bugs:
-Towers sometimes don't visibly fire (possibly due to firing only taking one frame)
+Towers sometimes don't visibly fire (possibly due to firing only taking one frame) <p>
 Sometimes tower not selected when clicking too fast
 
 Improvements to do:
