@@ -10,6 +10,6 @@ TD01
 <br>More towers (atleast 3, hopefully 6+)</br>
 <br>Weapons activated by clicking (atleast 3, not including default)</br>
 <br>Upgrades (both in game and after game)</br>
-<br>Upgrades after game are saved to text file</br>
-<br>Scoreboard</br>
+<br>Upgrades after game are saved to text file (.lpu)</br>
+<br>Scoreboard that saves to a text file (.lps)</br>
 <br>Multiple enemy types including bosses</br>
